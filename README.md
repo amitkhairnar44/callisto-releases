@@ -1,12 +1,12 @@
 # Callisto releases
 
-Installers and in-app updates for **Callisto**, an offline-first desktop API client for HTTP, GraphQL, WebSocket, Server-Sent Events and gRPC.
+Installers and in-app updates for **Callisto**, an offline-first desktop API client for HTTP, GraphQL, WebSocket, Server-Sent Events and gRPC, and pre-releases of **Callisto Preview**.
 
 Callisto keeps your work on your device. Collections are plain files you can keep in Git, secrets stay encrypted with a key in your system keychain, and nothing leaves your machine unless you send it.
 
 ## Download
 
-Get the latest version from **[Releases](https://github.com/amitkhairnar44/callisto-releases/releases/latest)**. The current version is **0.1.0**, for macOS, Windows and Linux.
+Get the latest version from **[Releases](https://github.com/amitkhairnar44/callisto-releases/releases/latest)**. The current version is **0.3.0**, for macOS, Windows and Linux.
 
 | Platform | File |
 |---|---|
@@ -22,7 +22,24 @@ The builds aren't code-signed yet:
 
 Each release lists every file's SHA-256 checksum in `SHA256SUMS.txt`. Updates installed from inside Callisto are signed separately, and the app checks the signature before installing.
 
-## What's in 0.1.0
+## Callisto Preview
+
+Callisto Preview is Callisto built on GPUI, a native UI toolkit, instead of a webview. It has the same features as Callisto and installs beside it rather than replacing it. It's a pre-release to try out: get it from **[Callisto Preview 0.3.0](https://github.com/amitkhairnar44/callisto-releases/releases/tag/preview-v0.3.0)**, for macOS for now. Windows and Linux builds will follow.
+
+| Platform | File |
+|---|---|
+| macOS, Apple silicon | `Callisto-Preview_<version>_aarch64.dmg` |
+| macOS, Intel | `Callisto-Preview_<version>_x64.dmg` |
+
+How it differs from Callisto:
+
+- **Its own data:** its own list of workspaces, history, settings and secrets. It opens the same workspace folders, but a secret set in one app isn't readable in the other, and neither app can remove the other's secrets.
+- **No updates:** it doesn't check for or install updates. Download a newer preview from the releases page.
+- **No HTML preview:** HTML responses show their source.
+
+Like Callisto, it isn't notarized yet: open it once, then allow it in System Settings → Privacy & Security.
+
+## What's in Callisto 0.3.0
 
 ### HTTP requests
 
@@ -73,7 +90,27 @@ Each release lists every file's SHA-256 checksum in `SHA256SUMS.txt`. Updates in
 
 - Collections and folders in a tree with search, drag and drop, inline rename, and delete with undo. Workspaces are folders of plain YAML files that you can keep in Git.
 - Variables at five levels: global, workspace, collection, environment and request. Switch environments from the top of the window.
-- Secrets (passwords, tokens, keys) are encrypted on your device with a key in your system keychain, and shown only when you choose to reveal them. They never go into collection files, exports or history.
+- Secrets (passwords, tokens, keys) are encrypted on your device with a key in your system keychain, and shown only when you choose to reveal them. They never go into collection files, exports, history or anything that syncs.
+
+### Sync through Git
+
+- Connect a workspace to a Git repository and sync it with one shortcut (Cmd+Shift+Y on macOS, Ctrl+Shift+Y elsewhere). Callisto uses the Git you already have, so your SSH keys and sign-in work as usual.
+- When two people change the same request, both versions are kept, and a dialog shows what to review.
+- Open from Git brings a shared workspace onto this device.
+- Secret values, history and settings never leave your device.
+
+### Workspaces
+
+- Create a workspace from the workspace switcher or the command palette, kept in Callisto's app data or in a folder you choose, or open any folder as a workspace.
+- The Workspaces section in Settings lists every workspace on this device, where it's kept and how it stands with its Git remote. Open, sync, rename or show the folder of any of them, or remove one from the list, without switching to it. Removing a workspace never touches its folder.
+- Sync all syncs every workspace that has a remote in one go, and shows what happened to each.
+
+### Scripts and the collection runner
+
+- Pre-request and test scripts in JavaScript, on a request, a folder or a whole collection: set variables, check the response with tests, and log to the console. The Tests tab shows what passed and what failed.
+- Scripts run in a sandbox with no access to your files or network, except `pm.sendRequest`.
+- Collections imported from Postman keep their scripts. They come in turned off, so you can read them before they run.
+- Run… on a collection or folder sends its requests in order, once or many times, or once for each row of a CSV or JSON file. Watch the results and tests as they come in, stop a run at any time, and export the results as JSON or JUnit XML. Runs don't fill your history.
 
 ### History
 
@@ -93,7 +130,7 @@ Each release lists every file's SHA-256 checksum in `SHA256SUMS.txt`. Updates in
 - A command palette (⌘K or Ctrl+K) for every action and every request.
 - Keyboard shortcuts throughout, all listed in Settings.
 - Tabs that show unsaved changes, can be dragged to reorder, and are kept per workspace.
-- Workspaces from any folder, with a switcher at the top of the sidebar.
+- A workspace switcher at the top of the sidebar.
 - Callisto's own right-click menus for text, editors and responses.
 - Light and dark themes, or follow the system.
 - A What's new dialog after each update.
