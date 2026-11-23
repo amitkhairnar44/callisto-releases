@@ -1,146 +1,63 @@
-# Callisto releases
+# Callisto
 
-Installers and in-app updates for **Callisto**, an offline-first desktop API client for HTTP, GraphQL, WebSocket, Server-Sent Events and gRPC, and pre-releases of **Callisto Preview**.
+Callisto is an offline-first desktop API client. Send a request, inspect its response, and save it alongside the rest of your collection as plain YAML files. You can work without an account and share a workspace through Git.
 
-Callisto keeps your work on your device. Collections are plain files you can keep in Git, secrets stay encrypted with a key in your system keychain, and nothing leaves your machine unless you send it.
+**[Download the latest release](https://github.com/amitkhairnar44/callisto-releases/releases/latest)** · [Choose an installer](#download) · [Explore the features](#features)
+
+![Callisto showing the List customers request, its query parameters, a 200 OK JSON response, and two passing tests](screenshots/http-response.png)
 
 ## Download
 
-Get the latest version from **[Releases](https://github.com/amitkhairnar44/callisto-releases/releases/latest)**. The current version is **0.3.0**, for macOS, Windows and Linux.
+**v0.4.1** includes security updates and a clearer startup message if Callisto cannot open its database. [Read the release notes](https://github.com/amitkhairnar44/callisto-releases/releases/tag/v0.4.1).
 
-| Platform | File |
-|---|---|
-| macOS, Apple silicon | `Callisto_<version>_aarch64.dmg` |
-| macOS, Intel | `Callisto_<version>_x64.dmg` |
-| Windows | `Callisto_<version>_x64-setup.exe` (installs for your user) or the `.msi` |
-| Linux | `.AppImage`, `.deb` or `.rpm` |
+Both editions are stable and can be installed side by side. **Callisto** includes a sandboxed HTML response preview. **Callisto Native**, formerly Callisto Preview, uses a native interface and displays HTML responses as source. Both open the same workspace format and keep separate histories, settings, and secret stores. Callisto Native keeps your existing Preview data.
 
-The builds aren't code-signed yet:
+| Platform | Callisto | Callisto Native |
+| --- | --- | --- |
+| macOS · Apple silicon | [DMG](https://github.com/amitkhairnar44/callisto-releases/releases/download/v0.4.1/Callisto_0.4.1_aarch64.dmg) | [DMG](https://github.com/amitkhairnar44/callisto-releases/releases/download/v0.4.1/Callisto-Native_0.4.1_aarch64.dmg) |
+| macOS · Intel | [DMG](https://github.com/amitkhairnar44/callisto-releases/releases/download/v0.4.1/Callisto_0.4.1_x64.dmg) | [DMG](https://github.com/amitkhairnar44/callisto-releases/releases/download/v0.4.1/Callisto-Native_0.4.1_x64.dmg) |
+| Windows · x64 | [Setup](https://github.com/amitkhairnar44/callisto-releases/releases/download/v0.4.1/Callisto_0.4.1_x64-setup.exe) · [MSI](https://github.com/amitkhairnar44/callisto-releases/releases/download/v0.4.1/Callisto_0.4.1_x64_en-US.msi) | [Setup](https://github.com/amitkhairnar44/callisto-releases/releases/download/v0.4.1/Callisto-Native_0.4.1_x64-setup.exe) · [Portable ZIP](https://github.com/amitkhairnar44/callisto-releases/releases/download/v0.4.1/Callisto-Native_0.4.1_x64.zip) |
+| Linux · x86-64 | [AppImage](https://github.com/amitkhairnar44/callisto-releases/releases/download/v0.4.1/Callisto_0.4.1_amd64.AppImage) · [DEB](https://github.com/amitkhairnar44/callisto-releases/releases/download/v0.4.1/Callisto_0.4.1_amd64.deb) · [RPM](https://github.com/amitkhairnar44/callisto-releases/releases/download/v0.4.1/Callisto-0.4.1-1.x86_64.rpm) | [Tarball](https://github.com/amitkhairnar44/callisto-releases/releases/download/v0.4.1/Callisto-Native_0.4.1_x86_64.tar.gz) · [DEB](https://github.com/amitkhairnar44/callisto-releases/releases/download/v0.4.1/Callisto-Native_0.4.1_amd64.deb) · [RPM](https://github.com/amitkhairnar44/callisto-releases/releases/download/v0.4.1/Callisto-Native-0.4.1-1.x86_64.rpm) |
 
-- **macOS:** the app isn't notarized. Open it once, then allow it in System Settings → Privacy & Security.
-- **Windows:** SmartScreen may ask you to confirm: More info, then Run anyway.
+On macOS, the apps are not notarized. After the first launch attempt, you can allow the app in **System Settings → Privacy & Security**. On Windows, SmartScreen may prompt you to select **More info → Run anyway**. You can verify a download against the release’s [SHA-256 checksums](https://github.com/amitkhairnar44/callisto-releases/releases/download/v0.4.1/SHA256SUMS.txt).
 
-Each release lists every file's SHA-256 checksum in `SHA256SUMS.txt`. Updates installed from inside Callisto are signed separately, and the app checks the signature before installing.
+## Features
 
-## Callisto Preview
+### Send requests and inspect responses
 
-Callisto Preview is Callisto built on GPUI, a native UI toolkit, instead of a webview. It has the same features as Callisto and installs beside it rather than replacing it. It's a pre-release to try out: get it from **[Callisto Preview 0.3.0](https://github.com/amitkhairnar44/callisto-releases/releases/tag/preview-v0.3.0)**, for macOS for now. Windows and Linux builds will follow.
+| Protocol | What you can do |
+| --- | --- |
+| **HTTP** | Send JSON, forms, multipart uploads, or binary files. Inspect headers, cookies, redirects, and timing. Filter a JSON response with JSONPath. |
+| **GraphQL** | Explore a schema, autocomplete fields, run queries and mutations with variables, and follow subscriptions over WebSocket. |
+| **WebSocket** | Send text, JSON, or binary messages. Save messages for reuse and filter the connection log. |
+| **Server-Sent Events** | Open a GET or POST stream and read events as they arrive. |
+| **gRPC** | Discover methods through server reflection or import proto files. Make unary and streaming calls with metadata, deadlines, and gzip. |
 
-| Platform | File |
-|---|---|
-| macOS, Apple silicon | `Callisto-Preview_<version>_aarch64.dmg` |
-| macOS, Intel | `Callisto-Preview_<version>_x64.dmg` |
+Set auth on a collection or folder and let requests inherit it. Switch environments to reuse a request with different hosts and credentials. Network settings include proxies, custom certificate authorities, and client certificates.
 
-How it differs from Callisto:
+### Test a collection
 
-- **Its own data:** its own list of workspaces, history, settings and secrets. It opens the same workspace folders, but a secret set in one app isn't readable in the other, and neither app can remove the other's secrets.
-- **No updates:** it doesn't check for or install updates. Download a newer preview from the releases page.
-- **No HTML preview:** HTML responses show their source.
+Add JavaScript pre-request scripts and tests to a request, folder, or collection. The runner executes HTTP and GraphQL requests in order, repeats them for rows in a CSV or JSON file, and exports results as JSON or JUnit XML. Expand a result to see which assertion failed.
 
-Like Callisto, it isn't notarized yet: open it once, then allow it in System Settings → Privacy & Security.
+![Collection runner in dark mode showing two iterations, individual test results, and an assertion that expected HTTP 201 and received 200](screenshots/collection-runner.png)
 
-## What's in Callisto 0.3.0
+### Ask about a response
 
-### HTTP requests
+The optional assistant can explain the last response, draft tests and pre-request scripts, or write a GraphQL operation. Choose Ollama, LM Studio, an OpenAI-compatible server, or Anthropic in Settings. Review what goes with each question and choose **Apply** to put a suggestion in the editor as an unsaved change.
 
-- Every method, including custom ones. Query parameters stay in step with the URL as you type either.
-- Headers, and request bodies of every kind: raw text (JSON, XML, HTML or plain), URL-encoded and multipart forms, a binary file, or GraphQL.
-- Auth: Basic, Bearer and API key (in a header or the query string). Requests can also inherit auth from their folder or collection, and the editor shows what they inherit.
-- `{{variables}}` anywhere: the URL bar highlights them, shows each one's value when you hover over it, and underlines any that aren't defined.
-- Per-request options: follow redirects, verify TLS certificates, and a timeout.
-- Proxies: the system's, none, or one you set (HTTP, HTTPS or SOCKS5, with a user name and a password kept in the vault, and hosts to reach directly).
-- Your own CA certificates and client certificates, and cookies kept per workspace.
-- Format a JSON body in one click: only whitespace changes, so numbers and `{{variables}}` stay as typed.
+![Assistant beside a sample HTTP response, proposing JavaScript tests with Copy and Apply to Tests controls](screenshots/assistant.png)
 
-### Responses
+### Organize and share your work
 
-- Status, time and size at a glance, with a timing breakdown (DNS, connecting and TLS, waiting for the server, download) and the redirects followed.
-- The body pretty-printed (JSON, XML and HTML) or raw, with search, copy and save. Large bodies stream to disk instead of filling memory.
-- A JSONPath filter to pick out parts of a JSON response.
-- HTML responses previewed in a sandbox, never run in the app.
-- Response headers and cookies, and the request headers that were actually sent.
+- **Workspaces and Git.** Group requests into collections and folders. Open a workspace from Git, review conflicting copies, or use **Sync all** across your connected workspaces.
+- **Import and export.** Bring in Postman, Insomnia, Hoppscotch, Thunder Client, OpenAPI, Swagger, HAR, or cURL. Preview the import, export a workspace as a ZIP, or copy a request as cURL.
+- **History and navigation.** Reopen an earlier request from History, or find a request or action with the command palette (`Ctrl+K` on Windows and Linux, `⌘K` on macOS).
+- **Secrets and privacy.** Secret values stay out of workspace files, history, and exports. The assistant asks for consent before sending context to a remote provider. Conversations stay on the device.
 
-### GraphQL
+*Screenshots show the Callisto interface with sample requests and simulated responses.*
 
-- Queries and mutations over a JSON POST, or GET with the operation in the URL.
-- The schema fetched by introspection and cached per endpoint, with autocomplete, checks as you type, and highlighting.
-- A docs explorer with search; ⌘-click or Ctrl-click a field to open its docs.
-- An operation picker, variables checked against the operation's types, Insert variables, and Prettify.
-- Errors the server returns with HTTP 200 shown as errors, with their message, path and position, and whether partial data came back.
-- Subscriptions over WebSocket, with a connection payload for servers such as Hasura and Apollo.
+## Updates
 
-### WebSocket and Server-Sent Events
+Both apps ask at first launch whether to check for updates automatically. In-app installations verify the update signature. Callisto Native installations from a ZIP, DEB, or RPM direct you to the releases page for a new download.
 
-- **WebSocket:** connect, send saved text, JSON or binary messages (with `{{variables}}`), and disconnect. Close codes and reasons are shown.
-- **Server-Sent Events:** any method and body, so streaming `POST` APIs work. Each event arrives with its type and ID.
-- A live message log you can filter by text and direction. Open any message to see its JSON pretty-printed or binary data as a hex dump, and copy it.
-- Proxy, certificate and cookie settings apply as they do for HTTP.
-
-### gRPC
-
-- All four kinds of call: unary, server streaming, client streaming and bidirectional.
-- Services from server reflection, or from proto files you import into the workspace (a folder, or single files). No `protoc` needed.
-- A method picker grouped by service, and an Example message button that fills in every field.
-- Messages as JSON with `{{variables}}`. Metadata goes in the header table, and auth becomes metadata.
-- For client and bidirectional streams, send saved messages while the call runs, then end the stream.
-- The status and its message, response metadata and trailers, decoded error details, a deadline per call, and gzip.
-- Copy a call as a `grpcurl` command.
-
-### Collections, environments and secrets
-
-- Collections and folders in a tree with search, drag and drop, inline rename, and delete with undo. Workspaces are folders of plain YAML files that you can keep in Git.
-- Variables at five levels: global, workspace, collection, environment and request. Switch environments from the top of the window.
-- Secrets (passwords, tokens, keys) are encrypted on your device with a key in your system keychain, and shown only when you choose to reveal them. They never go into collection files, exports, history or anything that syncs.
-
-### Sync through Git
-
-- Connect a workspace to a Git repository and sync it with one shortcut (Cmd+Shift+Y on macOS, Ctrl+Shift+Y elsewhere). Callisto uses the Git you already have, so your SSH keys and sign-in work as usual.
-- When two people change the same request, both versions are kept, and a dialog shows what to review.
-- Open from Git brings a shared workspace onto this device.
-- Secret values, history and settings never leave your device.
-
-### Workspaces
-
-- Create a workspace from the workspace switcher or the command palette, kept in Callisto's app data or in a folder you choose, or open any folder as a workspace.
-- The Workspaces section in Settings lists every workspace on this device, where it's kept and how it stands with its Git remote. Open, sync, rename or show the folder of any of them, or remove one from the list, without switching to it. Removing a workspace never touches its folder.
-- Sync all syncs every workspace that has a remote in one go, and shows what happened to each.
-
-### Scripts and the collection runner
-
-- Pre-request and test scripts in JavaScript, on a request, a folder or a whole collection: set variables, check the response with tests, and log to the console. The Tests tab shows what passed and what failed.
-- Scripts run in a sandbox with no access to your files or network, except `pm.sendRequest`.
-- Collections imported from Postman keep their scripts. They come in turned off, so you can read them before they run.
-- Run… on a collection or folder sends its requests in order, once or many times, or once for each row of a CSV or JSON file. Watch the results and tests as they come in, stop a run at any time, and export the results as JSON or JUnit XML. Runs don't fill your history.
-
-### History
-
-- Every request you send, grouped by day, with a filter.
-- Reopen any entry in a new tab and save it into a collection, or delete entries. Choose how many days and entries to keep.
-
-### Import and export
-
-- **Import** from Postman (collections, environments, globals and data exports), Insomnia, Hoppscotch, Thunder Client, OpenAPI 3.0 and 3.1, Swagger 2.0, HAR and cURL commands.
-  - Choose, paste or drop a file; Callisto detects the format.
-  - A preview shows what will be created, what's skipped, and which credentials go to the vault instead of into files.
-- **Export** collections and environments to Postman, or a whole workspace as a zip. Secret values are never included.
-- Copy any request as a cURL command, with secrets hidden unless you ask for them.
-
-### Working in the app
-
-- A command palette (⌘K or Ctrl+K) for every action and every request.
-- Keyboard shortcuts throughout, all listed in Settings.
-- Tabs that show unsaved changes, can be dragged to reorder, and are kept per workspace.
-- A workspace switcher at the top of the sidebar.
-- Callisto's own right-click menus for text, editors and responses.
-- Light and dark themes, or follow the system.
-- A What's new dialog after each update.
-
-### Privacy and updates
-
-- Callisto works offline and sends nothing on its own: requests go out only when you send them.
-- At the first launch, Callisto asks once whether to check for new versions automatically. It contacts the update server only if you say yes or check for updates yourself.
-- Updates are signed, and Callisto checks the signature before installing.
-
-## About this repository
-
-This repository holds releases only; the source is private. Each release's notes list what changed in that version.
+This repository hosts installers and release notes. [Browse all releases](https://github.com/amitkhairnar44/callisto-releases/releases).
